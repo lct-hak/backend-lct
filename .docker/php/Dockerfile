@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+#ADD .docker/php/php.ini /usr/local/etc/php/php.ini
+
 COPY .docker/php/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
