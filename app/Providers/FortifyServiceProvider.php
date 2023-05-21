@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -21,7 +23,22 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse {
+            public function toResponse($request)
+            {
+                if ($request->wantsJson()) {
+                    /** @var User $user */
+                    $user = User::where('email', $request->email)->first();
+
+                    return response()->json([
+                        'success' => true,
+                        'token' => $user->createToken($request->email)->plainTextToken,
+                    ]);
+                }
+
+                return redirect()->intended(Fortify::redirects('login'));
+            }
+        });
     }
 
     /**

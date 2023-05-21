@@ -47,8 +47,57 @@
                     }
                 },
                 "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "operationId": "8e9a859251d7569da8551b3eab886ff6",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Logged In",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "default": "true"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
