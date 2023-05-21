@@ -1,0 +1,57 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mos-Dolgoletie",
+        "description": "Mos-Dolgoletie API Documentation",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "operationId": "8080e9b08d6c19c1a64076cb2b016687",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string",
+                                        "minimum": 8
+                                    },
+                                    "password_confirmation": {
+                                        "required": [
+                                            "true"
+                                        ],
+                                        "type": "string",
+                                        "minimum": 8
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}
