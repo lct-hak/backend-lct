@@ -1,0 +1,18 @@
+stages:
+  - deploy
+
+deploy_develop:
+  stage: deploy
+  script:
+    - sudo mkdir -p /opt/lct/dev/api_dev
+    - sudo cp -rf . /opt/lct/dev/api_dev
+    - cd /opt/lct/dev/api_dev
+    - sudo cp .env.develop .env
+    - docker-compose down
+    - docker-compose up -d --build --force-recreate
+    - sudo chmod +x ./build.sh
+    - docker exec php-develop ./build.sh
+  tags:
+    - dev-shell
+  only:
+    - dev
