@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
 
 class UnauthenticatedUser extends Model
 {
@@ -15,7 +16,7 @@ class UnauthenticatedUser extends Model
 
         // Создание UUID перед сохранением модели
         static::creating(function ($unauthenticatedUser) {
-            $unauthenticatedUser->uuid = Str::uuid();
+            $unauthenticatedUser->uuid = Uuid::uuid1();
         });
     }
 }

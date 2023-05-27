@@ -16,7 +16,7 @@ class TestResponse extends Model
 
         // Генерация UUID перед созданием новой записи
         static::creating(function ($model) {
-            $model->uuid = Uuid::uuid4()->toString();
+            $model->uuid = Uuid::uuid4();
         });
     }
 
