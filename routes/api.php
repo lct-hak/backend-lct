@@ -18,6 +18,8 @@ Route::get('/documentation', [\App\Http\Controllers\Documentation\DocumentationC
 
 Route::post('/check_no_auth_user', [\App\Http\Controllers\UsersModule\UnautheticateUserController::class, 'getOrCreate']);
 
-Route::post('/createTest', [\App\Http\Controllers\TestModule\AdminController::class, 'createTest']);
+Route::post('/create_test', [\App\Http\Controllers\TestModule\AdminController::class, 'createTest']);
 
 Route::post('/access_test', [\App\Http\Controllers\TestModule\TestResponseController::class, 'store']);
+
+Route::get('/get_test', [\App\Http\Controllers\TestModule\TestController::class, 'getTest']);
