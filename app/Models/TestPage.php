@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TestPage extends Model
 {
-    protected $fillable = ['test_id', 'title'];
+    protected $guarded = ['id'];
 
     public function test()
     {
@@ -16,6 +16,6 @@ class TestPage extends Model
 
     public function testQuestions()
     {
-        return $this->hasMany(TestQuestion::class);
+        return $this->hasMany(TestQuestion::class, 'test_page_id');
     }
 }

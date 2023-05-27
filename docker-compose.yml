@@ -8,6 +8,10 @@ services:
         container_name: php
         volumes:
             - .:/var/www
+        ports:
+            - 9003:9003
+        extra_hosts:
+            - host.docker.internal:host-gateway
         networks:
             - to-backend
 

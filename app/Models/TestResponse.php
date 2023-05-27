@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 class TestResponse extends Model
 {
-    protected $fillable = ['user_id', 'unauthenticated_user_id', 'test_id'];
+    protected $guarded = ['id'];
 
     protected static function boot()
     {

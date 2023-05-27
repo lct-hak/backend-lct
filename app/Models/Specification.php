@@ -9,6 +9,8 @@ class Specification extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function specifiable()
     {
         return $this->morphTo();

@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TestReply extends Model
 {
     protected $table = 'test_replies';
-
-    protected $fillable = ['test_id', 'test_question_id', 'reply'];
+    protected $guarded = ['id'];
 
     public function test()
     {

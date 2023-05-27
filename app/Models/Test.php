@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-
-    protected $fillable = ['name'];
+    protected $guarded = ['id'];
 
     public function testPages()
     {
-        return $this->hasMany(TestPage::class);
+        return $this->hasMany(TestPage::class, 'test_id');
     }
 }
