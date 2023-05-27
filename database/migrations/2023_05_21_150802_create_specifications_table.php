@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('specifications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            // Добавьте другие необходимые поля для модели Specification
             $table->timestamps();
         });
     }

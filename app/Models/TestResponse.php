@@ -37,6 +37,8 @@ class TestResponse extends Model
 
     public function testReplies()
     {
-        return $this->belongsToMany(TestReply::class);
+        return $this->belongsToMany(TestReply::class, 'test_reply_test_response');
     }
+
+
 }

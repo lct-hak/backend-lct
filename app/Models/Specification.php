@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specification extends Model
 {
+    use HasFactory;
+
     public function specifiable()
     {
         return $this->morphTo();

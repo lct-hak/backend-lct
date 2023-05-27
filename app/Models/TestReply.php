@@ -23,7 +23,11 @@ class TestReply extends Model
 
     public function specifications()
     {
-        return $this->belongsToMany(Specification::class, 'specification_test_reply')
-            ->withTimestamps();
+        return $this->belongsToMany(Specification::class, 'specification_test_reply');
+    }
+
+    public function testResponses()
+    {
+        return $this->belongsToMany(TestResponse::class, 'test_reply_test_response');
     }
 }
