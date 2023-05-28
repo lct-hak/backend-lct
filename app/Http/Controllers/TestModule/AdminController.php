@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TestModule;
 
 use App\Http\Controllers\Controller;
 use App\Models\Test;
+use App\Models\TestPage;
 use App\Models\TestQuestion;
 use App\Models\TestReply;
 use Illuminate\Http\Request;
@@ -15,22 +16,27 @@ class AdminController extends Controller
     {
         // Валидация входных данных
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'questions' => 'required|array',
-            'questions.*.question' => 'required|string|max:255',
-            'questions.*.replies' => 'required|array',
-            'questions.*.replies.*.reply' => 'required|string|max:255',
-            'questions.*.replies.*.specifications' => 'required|array',
-            'questions.*.replies.*.specifications.*' => 'required|integer|exists:specifications,id',
+            'pages' => 'required|array',
+            'pages.*.title' => 'required|string|max:255',
+            'pages.*.questions' => 'required|array',
+            'pages.*.questions.*.question' => 'required|string|max:255',
+            'pages.*.questions.*.replies' => 'required|array',
+            'pages.*.questions.*.replies.*.reply' => 'required|string|max:255',
+            'pages.*.questions.*.replies.*.specifications' => 'required|array',
+            'pages.*.questions.*.replies.*.specifications.*' => 'required|integer|exists:specifications,id',
         ]);
 
         DB::beginTransaction();
+        Test::query()->delete();
         // Создание нового теста
         $test = Test::create(['name' => 'main']);
-
+        foreach ($validatedData['pages'] as $pageItem) {
             // Создание страницы
-            $page = $test->testPages()->create(['title' => $validatedData['title']]);
-            foreach ($validatedData['questions'] as $questionData) {
+            $page = TestPage::query()->create([
+                'title' => $pageItem['title'],
+                'test_id' => $test->id
+            ]);
+            foreach ($pageItem['questions'] as $questionData) {
                 // Создание вопроса
                 $question = TestQuestion::query()->create([
                     'test_page_id' => $page->id,
@@ -46,6 +52,7 @@ class AdminController extends Controller
                     $reply->specifications()->attach($replyData['specifications']);
                 }
             }
+        }
         DB::commit();
         return response()->json($test, 201);
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\TestModule;
 
 use App\Http\Controllers\Controller;
+use App\Models\Test;
 use App\Models\TestResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +14,13 @@ class TestResponseController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'test_id' => 'required|exists:tests,id',
             'user_id' => 'nullable|exists:unauthenticated_users,uuid',
             'answers' => 'required|array',
-            'answers.*.test_reply_id' => 'required|exists:test_replies,id',
+            'answers.*' => 'required|exists:test_replies,id',
         ]);
 
         $data = [
-            'test_id' => $validatedData['test_id'],
+            'test_id' => Test::query()->firstOrFail()->id,
         ];
 
         // Если пользователь аутентифицирован, получаем его идентификатор
